@@ -109,8 +109,8 @@
 </head>
 <body>
 <div id="hoja"><p class="nota" style="text-align:center;margin-top:30vh">Cargando informe…</p></div>
-<div id="barra" hidden><button id="pdf" type="button">Descargar PDF</button>
-  <button id="imprimir" type="button" class="secundario" onclick="window.print()">Imprimir / Guardar</button></div>
+<div id="barra" hidden><button id="completo" type="button" hidden>PDF con fotos</button>
+  <button id="pdf" type="button">Descargar PDF</button></div>
 <noscript><div class="error"><h1>Activa JavaScript</h1><p>El informe se arma en tu teléfono a partir del código QR.</p></div></noscript>
 <script>
 "use strict";
@@ -336,12 +336,23 @@ function dibujar(c) {
   hoja.append(el("footer", {},
     el("p", {}, "Prototipo de inspección asistida por procesamiento digital de imágenes. No sustituye el dictamen de " +
                 "un inspector calificado."),
-    el("p", {}, "Este informe no se guarda en ningún servidor: sus datos viajan dentro del código QR del equipo. " +
-                "Descárgalo si quieres conservarlo.")));
+    el("p", {}, c.F
+      ? "Los datos de esta página viajan dentro del código QR. El PDF con fotos está cifrado: solo se abre con " +
+        "este código y se borra al generar el siguiente informe o a las 24 h. Descárgalo si quieres conservarlo."
+      : "Este informe no se guarda en ningún servidor: sus datos viajan dentro del código QR del equipo. " +
+        "Descárgalo si quieres conservarlo.")));
 
   const barra = document.getElementById("barra");
   barra.hidden = false;
-  document.getElementById("pdf").onclick = () => descargarPdf(c);
+  const botonPdf = document.getElementById("pdf");
+  botonPdf.onclick = () => descargarPdf(c);
+  if (c.F) {     // hay PDF completo con fotos: es la descarga principal; el resumen queda de respaldo
+    const completo = document.getElementById("completo");
+    completo.hidden = false;
+    completo.onclick = () => descargarCompleto(c);
+    botonPdf.textContent = botonPdf.dataset.texto = "Resumen sin fotos";
+    botonPdf.className = "secundario";
+  }
   window.contenidoInforme = c;
 }
 
@@ -458,18 +469,50 @@ async function crearPdf(c) {
 }
 
 async function descargarPdf(c) {
-  const b = document.getElementById("pdf");
+  const b = document.getElementById("pdf"), texto = b.textContent;
   if (typeof html2canvas === "undefined" || typeof jspdf === "undefined") {
-    alert("No se pudo cargar el generador de PDF. Revisa la conexión o usa «Imprimir / Guardar».");
+    alert("No se pudo cargar el generador de PDF. Revisa la conexión a internet.");
     return;
   }
   b.disabled = true; b.textContent = "Generando PDF…";
   try {
-    (await crearPdf(c)).save(`informe_${c.m}_${c.r}.pdf`);
+    (await crearPdf(c)).save(`informe_${c.m}_${c.r}${c.F ? "_resumen" : ""}.pdf`);
   } catch (e) {
-    alert("No se pudo generar el PDF (" + e.message + "). Usa «Imprimir / Guardar» y elige «Guardar como PDF».");
+    alert("No se pudo generar el PDF (" + e.message + ").");
   } finally {
-    b.disabled = false; b.textContent = "Descargar PDF";
+    b.disabled = false; b.textContent = texto;
+  }
+}
+
+// PDF completo del equipo (con fotos): se baja cifrado de la rama "datos" del repositorio y se
+// descifra aquí con la clave del QR (AES-128-GCM; los primeros 12 bytes son el nonce).
+async function obtenerPdfCompleto(c) {
+  const [repo, id, claveHex] = c.F;
+  if (!window.crypto || !crypto.subtle) throw new Error("este navegador no permite descifrar (se necesita https)");
+  const r = await fetch(`https://raw.githubusercontent.com/${repo}/datos/e/${id}.bin`, { cache: "no-store" });
+  if (r.status === 404) throw new Error("ya no está disponible: se borra al generar el siguiente informe o a las 24 h");
+  if (!r.ok) throw new Error("no se pudo descargar (HTTP " + r.status + ")");
+  const datos = new Uint8Array(await r.arrayBuffer());
+  const clave = await crypto.subtle.importKey("raw", new Uint8Array(claveHex.match(/../g).map(h => parseInt(h, 16))),
+                                              "AES-GCM", false, ["decrypt"]);
+  const pdf = await crypto.subtle.decrypt({ name: "AES-GCM", iv: datos.subarray(0, 12) }, clave, datos.subarray(12));
+  return new Blob([pdf], { type: "application/pdf" });
+}
+
+async function descargarCompleto(c) {
+  const b = document.getElementById("completo");
+  b.disabled = true; b.textContent = "Descargando…";
+  try {
+    const url = URL.createObjectURL(await obtenerPdfCompleto(c));
+    const a = el("a", { href: url, download: `informe_${c.m}_${c.r}.pdf` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  } catch (e) {
+    alert("El PDF con fotos " + e.message + ". Puedes descargar el «Resumen sin fotos».");
+  } finally {
+    b.disabled = false; b.textContent = "PDF con fotos";
   }
 }
 
