@@ -1,0 +1,341 @@
+SOLDADURA ACEPTADA
+SOLDADURA RECHAZADA
+RESULTADO PENDIENTE DE CONFIRMACIÓN
+La soldadura cumple todos los criterios evaluados dentro del alcance del sistema.
+La soldadura no cumple al menos un criterio de aceptación de la norma.
+Hay criterios del alcance que requieren confirmación o medición antes de emitir un resultado.
+INFORME DE INSPECCIÓN VISUAL DE SOLDADURA (VT)
+INFORME DE INSPECCIÓN CON LÍQUIDOS PENETRANTES (PT)
+Evaluación de un SUBCONJUNTO de criterios de AWS D1.1/D1.1M:2020 por un prototipo didáctico. No constituye certificación ni reemplaza a un inspector calificado.
+2 indicación(es) >= 1 mm; suma máx. 7.37 mm/25 mm (<= 10) y 7.37 mm/300 mm (<= 20) (8)(A).
+Liquidosprueba1
+Control de calidad PT: el penetrante cubre 37% de la franja (posible exceso de penetrante o limpieza insuficiente); las manchas no representan discontinuidades individuales. Repetir limpieza/revelado según el procedimiento, o que el operador acepte la imagen explícitamente.
+Liquidosprueba2
+105.5 mm a lo largo del cordón
+PT-8: Control de calidad PT: el penetrante cubre 37% de la franja (posible exceso de penetrante o limpieza insuficiente); las manchas no representan discontinuidades individuales. Repetir limpieza/revelado según el procedimiento, o que el operador acepte la imagen explícitamente.
+Suma de diámetros >= 1 mm = 15.82 mm en 25 mm (desde x=57.3 mm) > 10.0 mm (8)(A).
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 15.82 mm en 25 mm (desde x=57.3 mm) > 10.0 mm (8)(A).
+6 indicación(es) >= 1 mm; suma máx. 8.01 mm/25 mm (<= 10) y 14.57 mm/300 mm (<= 20) (8)(A).
+7 indicación(es) >= 1 mm; suma máx. 4.93 mm/25 mm (<= 10) y 10.54 mm/300 mm (<= 20) (8)(A).
+Suma de diámetros >= 1 mm = 23.33 mm en 300 mm (desde x=2.1 mm) > 20.0 mm (8)(A).
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 23.33 mm en 300 mm (desde x=2.1 mm) > 20.0 mm (8)(A).
+8 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002, L003, L004, L005, L006, L007, L008).
+8 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002, L003, L004, L005, L006, L007, L008).
+Suma de diámetros >= 1 mm = 47.30 mm en 25 mm (desde x=121.5 mm) > 10.0 mm (8)(A).
+liquidosdos
+200.6 mm a lo largo del cordón
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 47.30 mm en 25 mm (desde x=121.5 mm) > 10.0 mm (8)(A).
+PT-1: 8 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002, L003, L004, L005, L006, L007, L008).
+PT-2: 8 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002, L003, L004, L005, L006, L007, L008).
+Suma de diámetros >= 1 mm = 60.80 mm en 25 mm (desde x=4.8 mm) > 10.0 mm (8)(A).
+2026-10-09 14:06
+202.6 mm a lo largo del cordón
+0.0595 mm/píxel (marcadores ArUco)
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 60.80 mm en 25 mm (desde x=4.8 mm) > 10.0 mm (8)(A).
+Suma de diámetros >= 1 mm = 60.70 mm en 25 mm (desde x=4.8 mm) > 10.0 mm (8)(A).
+202.3 mm a lo largo del cordón
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 60.70 mm en 25 mm (desde x=4.8 mm) > 10.0 mm (8)(A).
+1 mordedura(s), máx. 1.07 mm; 1 entre 1 y 2 mm con 1.1 mm acumulados en 300 mm (<= 50).
+0 indicación(es) >= 1 mm; suma máx. 0.00 mm/25 mm (<= 10) y 0.00 mm/300 mm (<= 20) (8)(A).
+Control de calidad PT: posible exceso de penetrante; las manchas no permiten ubicar ni medir mordeduras individuales. Repetir limpieza/revelado.
+Control de calidad PT: el penetrante cubre 41% de la franja (posible exceso de penetrante o limpieza insuficiente); las manchas no representan discontinuidades individuales. Repetir limpieza/revelado según el procedimiento, o que el operador acepte la imagen explícitamente.
+105.4 mm a lo largo del cordón
+PT-1: El detector no marcó indicaciones de grieta, pero no está validado: la ausencia de detección no demuestra ausencia. Requiere revisión del operador.
+PT-2: El detector no marcó indicaciones de falta de fusión, pero no está validado: la ausencia de detección no demuestra ausencia. Requiere revisión del operador.
+PT-7: Control de calidad PT: posible exceso de penetrante; las manchas no permiten ubicar ni medir mordeduras individuales. Repetir limpieza/revelado.
+PT-8: Control de calidad PT: el penetrante cubre 41% de la franja (posible exceso de penetrante o limpieza insuficiente); las manchas no representan discontinuidades individuales. Repetir limpieza/revelado según el procedimiento, o que el operador acepte la imagen explícitamente.
+Retirar la salpicadura adherida (5 indicaciones no relevantes) antes de un nuevo ensayo: retiene penetrante y oculta el metal.
+14 mordedura(s) mayor(es) a 2 mm (máx. 40.99 mm en M001): M001, M002, M003, M004, M005, M006, M007, M010, M011, M012 y 4 más.
+7 indicación(es) >= 1 mm; suma máx. 7.85 mm/25 mm (<= 10) y 13.11 mm/300 mm (<= 20) (8)(A).
+200.9 mm a lo largo del cordón
+Rechazo por PT-7 (Tabla 8.1 (7)): 14 mordedura(s) mayor(es) a 2 mm (máx. 40.99 mm en M001): M001, M002, M003, M004, M005, M006, M007, M010, M011, M012 y 4 más.
+Retirar la salpicadura adherida (4 indicaciones no relevantes) antes de un nuevo ensayo: retiene penetrante y oculta el metal.
+16 mordedura(s) mayor(es) a 2 mm (máx. 20.97 mm en M017): M002, M003, M004, M005, M006, M007, M009, M010, M011, M012 y 6 más.
+Suma de diámetros >= 1 mm = 16.28 mm en 25 mm (desde x=72.1 mm) > 10.0 mm (8)(A).
+202.1 mm a lo largo del cordón
+Rechazo por PT-7 (Tabla 8.1 (7)): 16 mordedura(s) mayor(es) a 2 mm (máx. 20.97 mm en M017): M002, M003, M004, M005, M006, M007, M009, M010, M011, M012 y 6 más.
+Rechazo por PT-8 (Tabla 8.1 (8)): Suma de diámetros >= 1 mm = 16.28 mm en 25 mm (desde x=72.1 mm) > 10.0 mm (8)(A).
+Retirar la salpicadura adherida (7 indicaciones no relevantes) antes de un nuevo ensayo: retiene penetrante y oculta el metal.
+1 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (C014).
+19 mordedura(s) mayor(es) a 1 mm en planta (máx. 8.04 mm en U012): U001, U002, U003, U004, U005, U006, U007, U008, U009, U010 y 9 más.
+2026-10-11 20:55
+201.2 mm a lo largo del cordón
+0.0582 mm/píxel (marcadores ArUco)
+Rechazo por VT-4 (6.10.1.1(4)): 19 mordedura(s) mayor(es) a 1 mm en planta (máx. 8.04 mm en U012): U001, U002, U003, U004, U005, U006, U007, U008, U009, U010 y 9 más.
+Confirmar mediante líquidos penetrantes las indicaciones lineales C014. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P002, P007, P014, P015, P020, P022, P023, P031 y 2 más); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Retirar la salpicadura adherida (21 indicaciones) antes del ensayo con líquidos penetrantes.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 25; posibles grietas menores a 3 mm: 13; posibles faltas de fusión menores a 10 mm: 8.
+1 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (C006).
+1 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (F002).
+21 mordedura(s) mayor(es) a 1 mm en planta (máx. 10.05 mm en U005): U001, U003, U005, U008, U009, U010, U012, U013, U014, U015 y 11 más.
+Rechazo por VT-4 (6.10.1.1(4)): 21 mordedura(s) mayor(es) a 1 mm en planta (máx. 10.05 mm en U005): U001, U003, U005, U008, U009, U010, U012, U013, U014, U015 y 11 más.
+Confirmar mediante líquidos penetrantes las indicaciones lineales C006, F002. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P001, P002, P004, P007, P010, P013, P014, P016 y 13 más); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Retirar la salpicadura adherida (10 indicaciones) antes del ensayo con líquidos penetrantes.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 12; posibles grietas menores a 3 mm: 11; posibles faltas de fusión menores a 10 mm: 22.
+1 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (F001).
+4 mordedura(s) mayor(es) a 1 mm en planta (máx. 6.15 mm en U003): U001, U002, U003, U005.
+195.2 mm a lo largo del cordón
+0.0609 mm/píxel (marcadores ArUco)
+Rechazo por VT-4 (6.10.1.1(4)): 4 mordedura(s) mayor(es) a 1 mm en planta (máx. 6.15 mm en U003): U001, U002, U003, U005.
+Confirmar mediante líquidos penetrantes las indicaciones lineales F001. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P002, P003, P004, P006, P007, P008, P009, P011); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Retirar la salpicadura adherida (17 indicaciones) antes del ensayo con líquidos penetrantes.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 5; posibles grietas menores a 3 mm: 23; posibles faltas de fusión menores a 10 mm: 26.
+3 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (C007, C012, C015).
+7 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (F016, F024, F027, F032, F043, F040, F048).
+15 mordedura(s) mayor(es) a 1 mm en planta (máx. 16.36 mm en U012): U001, U002, U003, U004, U005, U006, U007, U008, U009, U011 y 5 más.
+203.6 mm a lo largo del cordón
+0.0608 mm/píxel (marcadores ArUco)
+Rechazo por VT-4 (6.10.1.1(4)): 15 mordedura(s) mayor(es) a 1 mm en planta (máx. 16.36 mm en U012): U001, U002, U003, U004, U005, U006, U007, U008, U009, U011 y 5 más.
+Confirmar mediante líquidos penetrantes las indicaciones lineales C007, C012, C015, F016, F024, F027, F032, F043 y 2 más. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P001, P005, P006, P008, P009); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 7; posibles grietas menores a 3 mm: 33; posibles faltas de fusión menores a 10 mm: 45.
+2 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (C008, C014).
+9 mordedura(s) mayor(es) a 1 mm en planta (máx. 2.00 mm en U001): U001, U002, U003, U004, U005, U006, U007, U008, U009.
+Rechazo por VT-4 (6.10.1.1(4)): 9 mordedura(s) mayor(es) a 1 mm en planta (máx. 2.00 mm en U001): U001, U002, U003, U004, U005, U006, U007, U008, U009.
+Confirmar mediante líquidos penetrantes las indicaciones lineales C008, C014. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P001, P003, P004, P005, P010, P011, P012); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 5; posibles grietas menores a 3 mm: 17; posibles faltas de fusión menores a 10 mm: 19.
+1 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (C004).
+9 mordedura(s) mayor(es) a 1 mm en planta (máx. 9.06 mm en U006): U001, U002, U005, U006, U009, U010, U011, U012, U013.
+Rechazo por VT-4 (6.10.1.1(4)): 9 mordedura(s) mayor(es) a 1 mm en planta (máx. 9.06 mm en U006): U001, U002, U005, U006, U009, U010, U011, U012, U013.
+Confirmar mediante líquidos penetrantes las indicaciones lineales C004. Una indicación confirmada implica el rechazo de la soldadura.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P001, P003, P006, P010, P011, P012, P014); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Retirar la salpicadura adherida (8 indicaciones) antes del ensayo con líquidos penetrantes.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 7; posibles grietas menores a 3 mm: 4; posibles faltas de fusión menores a 10 mm: 3.
+21 mordedura(s) mayor(es) a 1 mm en planta (máx. 12.91 mm en U005): U001, U002, U003, U004, U006, U005, U007, U010, U013, U014 y 11 más.
+Rechazo por VT-4 (6.10.1.1(4)): 21 mordedura(s) mayor(es) a 1 mm en planta (máx. 12.91 mm en U005): U001, U002, U003, U004, U006, U005, U007, U010, U013, U014 y 11 más.
+Confirmar mediante líquidos penetrantes las porosidades de 1 mm o más (P002, P003, P005, P010, P011); la Tabla 8.1 (8) limita la suma de sus diámetros.
+Retirar la salpicadura adherida (24 indicaciones) antes del ensayo con líquidos penetrantes.
+Umbral mínimo de reporte (global para toda probeta). Candidatos por debajo, no listados: porosidad menor a 1 mm: 6; posibles grietas menores a 3 mm: 16; posibles faltas de fusión menores a 10 mm: 9.
+197.6 mm a lo largo del cordón
+0.0384 mm/píxel (marcadores ArUco)
+Ninguna.
+2 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002).
+2 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002).
+0.0394 mm/píxel (marcadores ArUco)
+PT-1: 2 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002).
+PT-2: 2 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002).
+204.9 mm a lo largo del cordón
+0.0613 mm/píxel (marcadores ArUco)
+0.0606 mm/píxel (marcadores ArUco)
+110.4 mm a lo largo del cordón
+0.0638 mm/píxel (marcadores ArUco)
+0.0584 mm/píxel (marcadores ArUco)
+0.0610 mm/píxel (marcadores ArUco)
+4 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002, L003, L004).
+4 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002, L003, L004).
+liquidosuno
+PT-1: 4 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001, L002, L003, L004).
+PT-2: 4 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001, L002, L003, L004).
+0.0594 mm/píxel (marcadores ArUco)
+2026-10-12 02:55
+2026-10-12 02:54
+Retirar la salpicadura adherida (13 indicaciones) antes del ensayo con líquidos penetrantes.
+2026-10-11 20:57
+(7)(A) estática, material < 25 mm: <= 1 mm; se admiten hasta 2 mm en una longitud acumulada de hasta 50 mm en cualquier tramo de 300 mm. (Tabla 8.1 (7)) Explicación completa en la sección 4.
+El detector no marcó indicaciones de grieta, pero no está validado: la ausencia de detección no demuestra ausencia. Requiere revisión del operador.
+La Tabla 8.1 no fija criterio de salpicadura. (Tabla 8.1) Explicación completa en la sección 4.
+La soldadura debe tener fusión completa. (6.10.1.1(3)) Explicación completa en la sección 4.
+Tabla 8.1, fila (8)(A): en juntas a tope CJP transversales al esfuerzo de tracción, «no se admite porosidad vermicular visible».
+En este tipo de junta no se admite ningún poro visible.
+El penetrante no reveló ninguna indicación lineal en la longitud inspeccionada.
+200.4 mm a lo largo del cordón
+(7)(A) estática, material < 25 mm: <= 1 mm; se admiten hasta 2 mm en una longitud acumulada de hasta 50 mm en cualquier tramo de 300 mm.
+(sin especificar)
+Poro: se mide el cráter visible (dimensión mayor), no la mancha revelada; sin cráter visible se mide la mancha (conservador).
+Mordedura: indicación sobre el pie del cordón; los pies se ubican por la línea de penetrante retenido. Su tamaño es la extensión revelada a lo largo del pie (mayor o igual que la muesca).
+Reglas medidas contra el criterio de un usuario sobre 4 placas (EXP-055); no validadas con más probetas.
+— Explicación completa en la sección 4.
+2026-10-11 20:56
+1 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001).
+1 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001).
+PT-1: 1 indicación(es) posible(s) de grieta pendiente(s) de confirmación del operador (L001).
+PT-2: 1 indicación(es) posible(s) de falta de fusión pendiente(s) de confirmación del operador (L001).
+Ø cráter {2} mm · mancha Ø {1} mm
+El detector no marcó indicaciones de falta de fusión, pero no está validado: la ausencia de detección no demuestra ausencia. Requiere revisión del operador.
+Cualquier grieta es inaceptable, sin importar su tamaño. (6.10.1.1(1)) Explicación completa en la sección 4.
+6.10.1.1(1)
+Cualquier grieta es inaceptable, sin importar su tamaño.
+6.10.1.1(2)
+Todos los cráteres llenos hasta la sección completa.
+Refuerzo de soldadura <= 3 mm.
+Altura de refuerzo: la cámara RGB 2D no lo mide y no hay medición manual.
+Perfil conforme a la Figura 7.4.
+Fuera del alcance: el perfil requiere medición 3D/galga.
+La soldadura debe tener fusión completa.
+6.10.1.1(4)
+Socavación <= 1 mm (largo a lo largo del pie en planta, criterio metodológico del tutor).
+6.10.1.1(5)
+La raíz de ranuras CJP no debe tener grietas, fusión incompleta ni penetración inadecuada.
+6.10.1.1(6)
+CJP desde un lado sin respaldo: concavidad de raíz <= 2 mm, penetración excesiva <= 3 mm.
+AWS D1.1/D1.1M:2020, 6.10.1.1
+Los tramos de mordedura de un mismo pie separados por 3 mm o menos se reportan como una sola indicación.
+Detectores heurísticos de PDI clásico, no validados contra un conjunto independiente.
+Cámara RGB 2D: no mide profundidad de mordedura, altura de refuerzo ni perfil.
+Grieta y falta de fusión son indicaciones posibles; requieren confirmación del operador.
+Salpicadura y porosidad: sensibilidad baja declarada (desarrollo con 5 placas y experto: salpicadura 15/46, poro 3/18); la ausencia de indicaciones no demuestra ausencia.
+La salpicadura se reporta sin criterio de rechazo (6.10.1.1 no la regula).
+Porosidad: 6.10.1.1 no establece criterio de aceptación; se reporta como información.
+Salpicadura: 6.10.1.1 no establece criterio de aceptación; se reporta como información.
+possible_crack
+possible_lack_of_fusion
+#2878ff
+#1e5ac8
+undercut_indication
+Socavación <= 1 mm (tamaño en planta, criterio del tutor). (6.10.1.1(4)) Explicación completa en la sección 4.
+porosity
+#ffc800
+#a07300
+6.10.1.1 no fija criterio de porosidad; la Tabla 8.1 (8)(A) cuenta poros >= 1 mm. (6.10.1.1 / Tabla 8.1 (8)(A)) Explicación completa en la sección 4.
+spatter
+6.10.1.1 no fija criterio de salpicadura. (6.10.1.1) Explicación completa en la sección 4.
+Tabla 8.1, fila (7)(A): en material de espesor menor a 25 mm, «la socavación no deberá exceder 1 mm», con la excepción de que se admiten hasta 2 mm en una longitud acumulada de 50 mm en cualquier tramo de 300 mm.
+La mordedura es una ranura en el metal base junto al pie del cordón que el metal de aporte no rellenó. Hasta 1 mm se acepta; entre 1 y 2 mm solo se tolera si, sumadas, esas mordeduras no pasan de 50 mm en cualquier tramo de 300 mm; más de 2 mm rechaza.
+Tabla 8.1, fila (7)(A): en material de 25 mm o más, la socavación no deberá exceder 2 mm.
+Posible grieta
+Posible falta de fusión
+Inspección visual (VT)
+Discontinuidad de tipo fractura, fina y alargada, producida durante el enfriamiento o por esfuerzos. La norma no admite grietas de ningún tamaño.
+Trazos oscuros, finos y alargados de al menos 3 mm. Por su baja visibilidad en imagen, toda posible grieta se confirma con líquidos penetrantes.
+Falta de unión entre el metal de aporte y el metal base o entre pasadas.
+Líneas oscuras de al menos 10 mm sobre la línea de fusión.
+Ranura en el metal base adyacente al pie del cordón que no fue rellenada por el metal de aporte.
+Seguimiento del pie del cordón por cambio de textura y medición de la muesca en planta. La profundidad no es medible con una imagen 2D.
+Cavidad de forma esférica producida por gas atrapado durante la solidificación.
+Manchas oscuras y circulares sin reflejo central; se reportan desde 1 mm de diámetro.
+Gotas de metal proyectadas durante la soldadura y adheridas a la superficie. No constituye discontinuidad estructural, pero debe retirarse antes de un ensayo con líquidos penetrantes.
+Puntos circulares con reflejo especular central rodeado de un anillo oscuro.
+2026-10-12 01:15
+(7)(A) estática, material < 25 mm: <= 1 mm (2 mm en hasta 50 mm acumulados por 300 mm).
+PT no mide la profundidad de la mordedura y no hay medición manual.
+Se mide la indicación revelada (sangrado), mayor o igual que la discontinuidad: medidas conservadoras.
+Lineal/redondeada por L/W es una convención metodológica, no un texto de AWS D1.1.
+Umbrales de color provisionales, fijados con 4 panoramas auxiliares sin ground truth PT.
+Largo {2} mm
+Tabla 8.1 (8) columna estática: porosidad vermicular visible. (Tabla 8.1 (8)) Explicación completa en la sección 4.
+Cualquier grieta es inaceptable, sin importar tamaño ni ubicación. (Tabla 8.1 (1)) Explicación completa en la sección 4.
+Largo {2} mm · ancho {2} mm
+Tabla 8.1, fila (8)(A): en las demás soldaduras en ranura, «la suma de los diámetros de la porosidad vermicular visible de 1 mm o más no deberá exceder 10 mm en cualquier 25 mm lineales de soldadura, ni 20 mm en cualquier longitud de 300 mm».
+Solo cuentan los poros de 1 mm de diámetro o más. Dentro de cada tramo de 25 mm de cordón se suman sus diámetros: si la suma pasa de 10 mm, la soldadura se rechaza. Además, en cualquier tramo de 300 mm la suma no puede pasar de 20 mm. Los poros menores a 1 mm no se cuentan.
+Tabla 8.1 (1)
+Cualquier grieta es inaceptable, sin importar tamaño ni ubicación.
+Tabla 8.1 (2)
+Fusión completa entre capas y entre metal de soldadura y base.
+Tabla 8.1 (3)
+Cráteres llenos hasta el tamaño especificado.
+Tabla 8.1 (4)
+Perfiles conforme a 7.23.
+Fuera del alcance: el perfil no se mide con PT ni con RGB 2D.
+Tabla 8.1 (5)
+Inspección tras enfriar a temperatura ambiente (48 h para A514, A517, A709 HPS 100W).
+El operador no declaró el tiempo de inspección.
+Tabla 8.1 (6)
+Tamaño inferior al nominal (soldaduras en filete).
+Requisito de soldaduras en filete; la probeta es de ranura.
+Tabla 8.1 (7)
+Tabla 8.1 (8)
+Tabla 8.1 (8) columna estática: porosidad vermicular visible.
+AWS D1.1/D1.1M:2020, 8.10 / Tabla 8.1
+PT solo revela discontinuidades abiertas a la superficie y no mide profundidad.
+Los tiempos de penetración, limpieza y revelado dependen del procedimiento y del fabricante; el software no los controla.
+pt_linear_indication
+pt_undercut_indication
+pt_rounded_indication
+#ff8c00
+#c35f00
+pt_spatter_indication
+Posible grieta (indicación lineal)
+Líquidos penetrantes (PT)
+Indicación revelada cuyo largo es al menos tres veces su ancho; corresponde a una abertura fina como una grieta o una falta de fusión.
+Segmentación del revelador por color y medición de largo y ancho.
+Cavidad producida por gas atrapado. En la pieza revelada se ve como un cráter oscuro rodeado por la mancha de penetrante que sale de él.
+Búsqueda de cráteres oscuros y nítidos rodeados de penetrante. Se mide el cráter visible (su dimensión mayor), no la mancha, que crece según el exceso de penetrante.
+Ranura en el metal base junto al pie del cordón; retiene penetrante y se revela como una mancha sobre el pie.
+Ubicación de los pies por la línea de penetrante que queda retenida en cada pie; toda indicación sobre un pie se reporta como mordedura. Se mide su extensión a lo largo del pie.
+Gota de metal adherida a la superficie. El penetrante se acumula en su base y forma un halo: es una indicación no relevante.
+Halo pequeño y compacto de penetrante alrededor de una gota más clara, o mancha fuera del cordón. No se cuenta como porosidad.
+El sistema solo fotografía la cara de la soldadura; la raíz no se inspecciona.
+La cámara no mide profundidad. Por criterio metodológico de la tesis, el límite de 1 mm se aplica al tamaño visible de la mordedura en planta (largo a lo largo del pie). Toda mordedura mayor a 1 mm es rechazable; el inspector solo puede descartarla si comprueba que no es una mordedura.
+La cámara no mide profundidad. Por criterio metodológico de la tesis, el límite de 1 mm se aplica al tamaño visible de la mordedura en planta (ancho de la muesca). Toda mordedura mayor a 1 mm es rechazable; el inspector solo puede descartarla si comprueba que no es una mordedura.
+Tabla 8.1, fila (7)(B): en miembros principales transversales a la tracción, la socavación no deberá exceder 0,25 mm de profundidad; en los demás casos, 1 mm.
+Tabla 8.1, fila (8)(C): en soldaduras en ranura, la porosidad vermicular visible no deberá superar una cada 100 mm de soldadura, con diámetro máximo de 2,5 mm.
+Se admite como máximo un poro por cada 100 mm de soldadura y ninguno puede medir más de 2,5 mm de diámetro.
+Fuera del alcance del prototipo: no hay detector de cráteres.
+Probeta
+Método de ensayo
+Norma de referencia
+Fecha y hora del análisis
+Longitud inspeccionada
+Escala de la imagen
+Equipo
+Prototipo de inspección automatizada: cámara RGB sobre carro motorizado, iluminación cenital
+Indicaciones reportadas
+Revisión del inspector
+no realizada
+Versión del software
+51a75033c4 (con cambios locales)
+Tipo de carga (supuesto de estudio)
+estática
+Penetración completa (CJP)
+Transversal a esfuerzo de tracción
+Espesor del metal base
+menor a 25 mm (sin valor exacto)
+Las indicaciones se obtienen por reglas de procesamiento de imagen; se reportan como «posibles» y no se expresan como probabilidad.
+#e61e1e
+#be1919
+#dc00dc
+#a000a0
+#00c8c8
+#007882
+6.10.1.1(3)
+Posible mordedura
+Posible poro
+Posible salpicadura
+La mordedura es una ranura en el metal base junto al pie del cordón que el metal de aporte no rellenó; la norma limita su tamaño.
+VT-1
+6.10.1.1(1): «Cualquier grieta será inaceptable, independientemente de su tamaño».
+No existe una grieta pequeña aceptable: una sola grieta, de cualquier longitud y en cualquier lugar del cordón, rechaza la soldadura.
+Se marca como posible grieta todo trazo oscuro, fino y alargado de 3 mm o más. Una imagen no distingue con certeza una grieta de una marca superficial, por lo que el inspector confirma o descarta cada una; una sola confirmada rechaza la soldadura.
+VT-3c
+6.10.1.1(3): «[...] la soldadura deberá tener fusión completa».
+El metal de aporte debe quedar fundido con el metal base y con las pasadas anteriores en toda la longitud. La norma no fija un tamaño admisible: cualquier falta de fusión rechaza.
+Se marcan líneas oscuras de 10 mm o más sobre la línea de fusión; el inspector las confirma o descarta.
+VT-4
+6.10.1.1(4): «La socavación no deberá exceder 1/32 in [1 mm]».
+La mordedura es una ranura en el metal base junto al pie del cordón que el metal de aporte no rellenó. Se admite hasta 1 mm; una mordedura mayor rechaza la soldadura.
+Poro
+6.10.1.1 no establece un criterio de aceptación para la porosidad.
+En la inspección visual de soldaduras en ranura la norma no fija un límite de poros. Los poros se reportan como información y no cambian el resultado. La porosidad se evalúa con la Tabla 8.1 en el ensayo de líquidos penetrantes.
+Se marcan manchas oscuras y circulares, sin reflejo central, de 1 mm o más de diámetro.
+Ni 6.10.1.1 ni la Tabla 8.1 establecen un criterio de aceptación para la salpicadura.
+La salpicadura no es una discontinuidad del cordón y no causa rechazo por sí misma; es una condición de limpieza de la superficie.
+Se reporta como información. Debe retirarse antes de aplicar líquidos penetrantes, porque retiene penetrante y produce indicaciones falsas.
+PT-1
+Tabla 8.1, fila (1): «Cualquier grieta será inaceptable, independientemente de su tamaño o ubicación».
+No existe una grieta pequeña aceptable: una sola grieta, de cualquier longitud y en cualquier lugar, rechaza la soldadura.
+Una grieta abierta a la superficie retiene el penetrante y aparece como una indicación lineal (largo de al menos tres veces el ancho) sobre la cara del cordón. El inspector confirma cada posible grieta. Si el penetrante no revela ninguna indicación lineal, el criterio se cumple.
+PT-2
+Tabla 8.1, fila (2): «Deberá existir fusión completa entre capas adyacentes de metal de soldadura y entre el metal de soldadura y el metal base».
+El metal de aporte debe quedar fundido con el metal base y con las pasadas anteriores. La norma no fija un tamaño admisible: cualquier falta de fusión rechaza.
+Una falta de fusión abierta a la superficie aparece como una indicación lineal en el borde del cordón o entre pasadas; el inspector la confirma.
+PT-7
+El sistema ubica los pies del cordón por la línea de penetrante que queda retenida en ellos y reporta como mordedura toda indicación sobre un pie. PT no mide profundidad: por criterio metodológico de la tesis, el límite se compara con el tamaño visible en planta (extensión de la indicación a lo largo del pie), que es igual o mayor que la muesca real.
+Poro (porosidad)
+PT-8
+Cada poro se reconoce por su cráter oscuro dentro de la mancha y se mide por la dimensión mayor del cráter visible, no por la mancha, que crece según el exceso de penetrante. El sistema recorre el cordón con la ventana de la norma y reporta el tramo más desfavorable.
+La Tabla 8.1 no establece un criterio de aceptación para la salpicadura.
+La salpicadura no es una discontinuidad del cordón y no causa rechazo por sí misma.
+Debe retirarse antes del ensayo: el penetrante se acumula en su base y produce indicaciones no relevantes. El sistema las reconoce por el halo alrededor de la gota o por estar fuera del cordón, y no las cuenta como porosidad.
+Ø cráter {2} mm
+Largo en el pie {2} mm · ancho {2} mm
+Grieta
+Falta de fusión
+Mordedura (socavación)
+Salpicadura
+Largo {2} mm · muesca {2} mm
+Ø {2} mm
+Ø {2} mm · largo {2} mm · ancho {2} mm

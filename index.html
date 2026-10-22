@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Informe de inspección</title>
+<!--
+  Página FIJA del informe por QR (ver informe_web.py). No recibe ni guarda informes: los datos
+  viajan en la parte "#..." del enlace, que el navegador nunca envía al servidor. Aquí se
+  descomprimen y se dibuja el informe con los mismos textos que el PDF del equipo.
+  Formato del fragmento: 1 carácter = versión del diccionario (diccionarios/dN.txt), resto =
+  deflate en base 36. Los textos "~n" son la frase n (base 36) del diccionario; "~~" = "~".
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_inflate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<style>
+  :root {
+    --text: #1e1e1e; --muted: #5f5f5f; --rule: #c9c9c9; --head: #eceef1; --paper: #ffffff; --bg: #f3f4f6;
+    --pass: #196e37; --fail: #a51919; --pend: #965f00; --na: #6e6e6e; --accent: #1f4e79;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  #hoja { max-width: 820px; margin: 0 auto; background: var(--paper); padding: 16px 16px 96px; }
+  header.inst { display: flex; gap: 12px; align-items: center; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+  header.inst img { width: 48px; height: 48px; object-fit: contain; flex: none; }
+  header.inst .i1 { font-weight: 700; font-size: 13px; }
+  header.inst .i2, header.inst .i3 { font-size: 12px; color: var(--muted); }
+  header.inst .meta { margin-left: auto; text-align: right; font-size: 12px; white-space: nowrap; }
+  h1 { font-size: 18px; text-align: center; margin: 14px 0 2px; }
+  .sub { text-align: center; color: var(--muted); font-size: 13px; margin: 0 0 8px; }
+  h2 { font-size: 15px; text-transform: uppercase; margin: 22px 0 8px; padding-bottom: 4px;
+       border-bottom: 1px solid var(--rule); letter-spacing: .02em; }
+  h3 { font-size: 14px; margin: 14px 0 6px; }
+  p { margin: 6px 0; }
+  .nota { font-size: 12.5px; color: var(--muted); }
+  .it { font-style: italic; }
+  .aviso { background: #fff6e0; border: 1px solid #e3c27a; border-radius: 6px; padding: 8px 10px; font-size: 13px; margin: 8px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 4px 0 8px; }
+  th, td { border: 1px solid var(--rule); padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: var(--head); }
+  table.kv th { width: 34%; }
+  td.num { text-align: center; }
+  .b { font-weight: 700; }
+  .veredicto { border: 2px solid; border-left-width: 8px; border-radius: 6px; padding: 10px 12px; margin: 6px 0; }
+  .veredicto .t { font-size: 18px; font-weight: 800; }
+  .veredicto ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+  .crit { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; margin: 6px 0; font-size: 13px; }
+  .crit .cab { display: flex; gap: 8px; justify-content: space-between; font-weight: 700; }
+  .estado { font-weight: 800; white-space: nowrap; }
+  ol.acc { padding-left: 22px; font-size: 14px; }
+  ol.acc li { margin: 4px 0; }
+  .leyenda { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; margin: 4px 0 6px; }
+  .leyenda span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 50%;
+                          margin-right: 5px; vertical-align: -1px; background: var(--c); border: 1px solid #444; }
+  .desliza { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--rule); border-radius: 6px; }
+  svg.mapa { width: 100%; min-width: 760px; height: auto; display: block; }
+  .sololinea { display: none; }
+  table.resumen th, table.resumen td { padding: 5px 4px; }
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; }
+  .tarjeta { border: 1px solid var(--rule); border-left: 5px solid var(--c); border-radius: 6px; padding: 6px 8px; font-size: 12.5px; }
+  .tarjeta .cab { display: flex; justify-content: space-between; font-weight: 700; font-size: 13.5px; }
+  .firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .firma { border: 1px solid var(--rule); padding: 8px; height: 130px; position: relative; font-size: 12.5px; }
+  .firma .l { position: absolute; left: 16px; right: 16px; bottom: 34px; border-top: 1px solid var(--text);
+              text-align: center; padding-top: 3px; }
+  .firma .f { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; }
+  footer { margin-top: 22px; padding-top: 8px; border-top: 1px solid var(--rule); font-size: 11.5px; color: var(--muted); }
+  #barra { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,.96);
+           border-top: 1px solid var(--rule); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex;
+           justify-content: center; gap: 10px; }
+  #barra button { font: inherit; font-weight: 700; font-size: 16px; padding: 12px 22px; border-radius: 10px; border: 0;
+                  background: var(--accent); color: #fff; flex: 1 1 auto; max-width: 260px; }
+  #barra button:disabled { opacity: .55; }
+  #barra button.secundario { background: #e4e7eb; color: var(--text); min-width: 0; font-size: 14px; padding: 12px 14px; }
+  /* Respaldo: el diálogo nativo del teléfono (Imprimir -> Guardar como PDF), texto real y sin canvas. */
+  @media print {
+    @page { size: A4; margin: 10mm 10mm 12mm; }
+    body { background: #fff; font-size: 11pt; }
+    #hoja { max-width: none; padding: 0; }
+    #barra, .sololinea { display: none !important; }
+    .desliza { overflow: visible; border: 0; }
+    svg.mapa { min-width: 0; }
+    header.inst .meta { display: block !important; }
+    h2, h3 { break-after: avoid; page-break-after: avoid; }
+    tr, .tarjeta, .crit, .evitar-corte { break-inside: avoid; page-break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  .error { max-width: 520px; margin: 18vh auto; padding: 20px; text-align: center; }
+  .error h1 { font-size: 20px; }
+  /* Modo PDF: ancho útil de A4 (190 mm = 718 px) para que el PDF salga igual desde cualquier
+     teléfono; html2pdf recorta lo que pase de ese ancho. */
+  body.pdf #hoja { width: 718px; max-width: none; padding: 0; }
+  body.pdf #barra, body.pdf .sololinea { display: none; }
+  body.pdf .desliza { overflow: visible; }
+  body.pdf svg.mapa { min-width: 0; }
+  .evitar-corte { break-inside: avoid; page-break-inside: avoid; }
+  @media (max-width: 520px) {
+    body:not(.pdf) header.inst .meta { display: none; }
+    body:not(.pdf) table.kv th { width: 40%; }
+    body:not(.pdf) .firmas { grid-template-columns: 1fr; }
+    body:not(.pdf) table.resumen { font-size: 11.5px; }
+    body:not(.pdf) .sololinea { display: block; }
+  }
+</style>
+</head>
+<body>
+<div id="hoja"><p class="nota" style="text-align:center;margin-top:30vh">Cargando informe…</p></div>
+<div id="barra" hidden><button id="pdf" type="button">Descargar PDF</button>
+  <button id="imprimir" type="button" class="secundario" onclick="window.print()">Imprimir / Guardar</button></div>
+<noscript><div class="error"><h1>Activa JavaScript</h1><p>El informe se arma en tu teléfono a partir del código QR.</p></div></noscript>
+<script>
+"use strict";
+const B36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const ZDICT_MAX = 28000;   // = informe_web.DICCIONARIO_MAX
+const ESTADO = { PASS: ["CUMPLE", "var(--pass)"], FAIL: ["NO CUMPLE", "var(--fail)"],
+                 NOT_EVALUABLE: ["NO EVALUABLE", "var(--pend)"], NOT_APPLICABLE: ["NO APLICA", "var(--na)"] };
+// Códigos de dictamen = informe_web.DICTAMEN_CODIGO
+const DICTAMEN = [["Rechazable", "var(--fail)"], ["Por confirmar", "var(--pend)"], ["Informativa", "var(--muted)"],
+                  ["Aceptable", "var(--pass)"], ["Descartada", "#8c8c8c"]];
+const ORDEN_DICTAMEN = [0, 1, 2, 3, 4];
+
+// ---------- DOM seguro (todo el texto va por textContent) ----------
+function el(tag, attrs, ...hijos) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined) continue;
+    if (k === "style") e.style.cssText = v; else if (k === "class") e.className = v; else e.setAttribute(k, v);
+  }
+  for (const h of hijos.flat()) {
+    if (h === null || h === undefined || h === false) continue;
+    e.append(h instanceof Node ? h : document.createTextNode(String(h)));
+  }
+  return e;
+}
+const svgNS = "http://www.w3.org/2000/svg";
+function sv(tag, attrs, texto) {
+  const e = document.createElementNS(svgNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  if (texto !== undefined) e.textContent = texto;
+  return e;
+}
+function kv(filas, cls) {
+  return el("table", { class: "kv " + (cls || "") },
+    filas.map(([k, v, color]) => el("tr", {}, el("th", {}, k),
+      el("td", color ? { class: "b", style: "color:" + color } : {}, v))));
+}
+
+// ---------- Decodificación del fragmento ----------
+function base36ABytes(s) {
+  let n = 0n;
+  for (const ch of s) {
+    const d = B36.indexOf(ch);
+    if (d < 0) throw new Error("carácter inválido");
+    n = n * 36n + BigInt(d);
+  }
+  let hex = n.toString(16);
+  if (hex.length % 2) hex = "0" + hex;
+  const bytes = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(hex.substr(2 * i, 2), 16);
+  if (bytes[0] !== 1) throw new Error("encabezado inválido");
+  return bytes.subarray(1);
+}
+function sinReferencias(o, tabla) {
+  if (typeof o === "string" && o.startsWith("~")) {
+    if (o.startsWith("~~")) return o.slice(1);
+    const i = parseInt(o.slice(1), 36);
+    if (!(i in tabla)) throw new Error("frase desconocida");
+    return tabla[i];
+  }
+  if (Array.isArray(o)) return o.map(x => sinReferencias(x, tabla));
+  if (o && typeof o === "object") return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, sinReferencias(v, tabla)]));
+  return o;
+}
+async function decodificar(frag) {
+  const version = B36.indexOf(frag[0]);
+  if (version < 0) throw new Error("versión inválida");
+  const datos = base36ABytes(frag.slice(1));
+  let tabla = [], zdict;
+  if (version > 0) {
+    const r = await fetch("diccionarios/d" + version + ".txt", { cache: "force-cache" });
+    if (!r.ok) throw new Error("No se encontró el diccionario d" + version + ".txt");
+    const buf = new Uint8Array(await r.arrayBuffer());
+    tabla = new TextDecoder("utf-8").decode(buf).split("\n");
+    zdict = buf.subarray(Math.max(0, buf.length - ZDICT_MAX));
+  }
+  const json = pako.inflateRaw(datos, zdict ? { dictionary: zdict, to: "string" } : { to: "string" });
+  return sinReferencias(JSON.parse(json), tabla);
+}
+
+// ---------- Utilidades del contenido ----------
+function rellenar(plantilla, numeros) {   // = informe_web._rellenar
+  let i = 0;
+  return plantilla.replace(/\{\{|\}\}|\{(\d)\}/g, (m, k) => {
+    if (m === "{{" || m === "}}") return m[0];
+    const n = numeros[i++], d = Number(k);
+    if (!d) return String(n);
+    const s = String(n).padStart(d + 1, "0");
+    return s.slice(0, -d) + "." + s.slice(-d);
+  });
+}
+function indicaciones(c) {
+  return c.d.map(f => {
+    const t = c.T[f[1]];
+    return { id: typeof f[0] === "number" ? t[7] + String(f[0]).padStart(3, "0") : f[0], t: f[1], tipo: t,
+             x: f[2] / 2, y: f[3] / 2, pie: f[4], dic: f[5], medida: rellenar(f[6], f[7]),
+             revision: f.length > 8 ? f[8] : null };
+  });
+}
+
+// ---------- Informe ----------
+function dibujar(c) {
+  const hoja = document.getElementById("hoja");
+  hoja.replaceChildren();
+  const dets = indicaciones(c);
+  const [veredicto, vTitulo, vTexto] = c.V;
+  const probeta = c.p || c.r;
+  document.title = `${c.t[0]} — ${probeta}`;
+
+  hoja.append(el("header", { class: "inst" },
+    el("img", { src: "logo_espoch.png", alt: "ESPOCH" }),
+    el("div", {}, el("div", { class: "i1" }, "ESCUELA SUPERIOR POLITÉCNICA DE CHIMBORAZO"),
+      el("div", { class: "i2" }, "Facultad de Mecánica — Inspección de uniones soldadas"),
+      el("div", { class: "i3" }, c.t[1])),
+    el("div", { class: "meta" }, el("div", {}, "Informe N.º: " + c.r), el("div", {}, "Fecha: " + c.f.slice(0, 10)))));
+  hoja.append(el("h1", {}, c.t[0]),
+    el("p", { class: "sub" }, `Probeta ${c.p || "(sin especificar)"} — referencia normativa ${c.n[0]}, ${c.n[1]}`));
+  if (c.w) hoja.append(el("div", { class: "aviso" }, "Informe abreviado para que entre en el código QR. " + c.w));
+
+  // 1. Datos
+  hoja.append(el("h2", {}, "1. Datos de la inspección"), kv(c.D));
+
+  // 2. Resultado
+  const color = (ESTADO[veredicto] || ["", "var(--text)"])[1];
+  const fallas = c.c.filter(x => x[1] === "FAIL").map(x => `${x[0]} (${x[2]}): ${x[4]}`);
+  const pendientes = veredicto === "NOT_EVALUABLE"
+    ? c.c.filter(x => x[5] && x[1] === "NOT_EVALUABLE").map(x => `${x[0]}: ${x[4]}`) : [];
+  const lineas = fallas.concat(pendientes);
+  hoja.append(el("h2", {}, "2. Resultado de la inspección"),
+    el("div", { class: "veredicto evitar-corte", style: `border-color:${color}` },
+      el("div", { class: "t", style: `color:${color}` }, vTitulo), el("div", {}, vTexto),
+      lineas.length ? el("ul", {}, lineas.map(l => el("li", {}, l))) : null),
+    el("p", { class: "nota it" }, c.Z));
+
+  // 3. Resumen
+  const cols = [0, 1, 3, 2];   // Rechazable, Por confirmar, Aceptable, Informativa (orden del PDF)
+  hoja.append(el("h2", {}, "3. Resumen de indicaciones"),
+    el("table", { class: "resumen" }, el("tr", {}, ["Tipo de indicación", "Total", "Rechazable", "Por confirmar", "Aceptable", "Informativa"]
+        .map(h => el("th", {}, h))),
+      c.T.map((t, i) => {
+        const de = dets.filter(d => d.t === i);
+        return el("tr", {}, el("td", { class: "b", style: "color:" + t[3] }, t[1]), el("td", { class: "num" }, de.length),
+          cols.map(k => {
+            const n = de.filter(d => d.dic === k).length;
+            return el("td", n && k < 2 ? { class: "num b", style: "color:" + DICTAMEN[k][1] } : { class: "num" }, n);
+          }));
+      })));
+  if (c.B) hoja.append(el("p", { class: "nota" }, c.B));
+
+  // 4. Criterios
+  const porId = Object.fromEntries(c.c.map(x => [x[0], x]));
+  hoja.append(el("h2", {}, `4. Evaluación según ${c.n[0]} — ${c.n[1]}`),
+    el("p", {}, "Para cada discontinuidad se transcribe lo que exige la norma, qué significa en la práctica, cómo lo " +
+               "aplica este sistema y el resultado obtenido en esta probeta."));
+  c.N.forEach(([ti, nombre, cid, dice, significa, aplica], k) => {
+    const cr = cid ? porId[cid] : null;
+    const tipo = c.T[ti];
+    let res;
+    if (cr) res = [`${(ESTADO[cr[1]] || [cr[1]])[0]}. ${cr[4]}`, (ESTADO[cr[1]] || ["", null])[1]];
+    else {
+      const n = dets.filter(d => d.t === ti).length;
+      res = [`Informativa: ${n} indicación(es) detectada(s). No interviene en el resultado.`, "var(--muted)"];
+    }
+    const filas = [];
+    if (dice) filas.push(["Qué dice la norma", dice], ["Qué significa", significa], ["Cómo se evalúa en este sistema", aplica]);
+    filas.push(["Resultado en esta probeta", res[0], res[1]]);
+    hoja.append(el("div", { class: "evitar-corte" },
+      el("h3", { style: "color:" + (tipo ? tipo[3] : "inherit") },
+        `4.${k + 1} ${nombre}` + (cr ? ` — criterio ${cid}, ${cr[2]}` : " — sin criterio de aceptación")),
+      kv(filas)));
+  });
+  hoja.append(el("h3", {}, `4.${c.N.length + 1} Resumen de criterios evaluados`),
+    ...c.c.filter(x => x[5]).map(([id, st, clausula, requisito, motivo]) => el("div", { class: "crit evitar-corte" },
+      el("div", { class: "cab" }, el("span", {}, `${id} · ${clausula}`),
+        el("span", { class: "estado", style: "color:" + (ESTADO[st] || ["", ""])[1] }, (ESTADO[st] || [st])[0])),
+      el("div", {}, requisito), el("div", { class: "nota" }, motivo))));
+  const fuera = c.c.filter(x => !x[5]);
+  if (fuera.length) hoja.append(el("p", { class: "nota" }, "Criterios fuera del alcance del sistema (no evaluados): " +
+    fuera.map(x => `${x[0]} ${x[2]} — ${x[4]}`).join("; ")));
+  c.i.forEach(([nota, n]) => hoja.append(el("p", { class: "nota" },
+    `${nota} Cantidad detectada: ${n === null ? "no disponible" : n}.`)));
+
+  // 5. Acciones
+  hoja.append(el("h2", {}, "5. Acciones requeridas"), el("ol", { class: "acc" }, c.A.map(a => el("li", {}, a))));
+
+  // 6. Mapa (en lugar del registro fotográfico, que no cabe en un QR)
+  hoja.append(el("h2", {}, "6. Ubicación de las indicaciones"),
+    el("p", { class: "nota" }, "Franja del cordón vista desde arriba, a escala (eje horizontal = longitud de la " +
+      "soldadura; arriba = lado de los marcadores ArUco). Las fotografías de cada indicación están en el informe " +
+      "PDF guardado en el equipo; no viajan en el código QR."),
+    leyenda(c, dets), el("div", { class: "desliza" }, mapa(c, dets)),
+    el("p", { class: "nota sololinea" }, "Desliza el mapa hacia los lados para recorrer el cordón."));
+
+  // 7. Detalle
+  hoja.append(el("h2", {}, "7. Detalle de indicaciones"));
+  if (!dets.length) hoja.append(el("p", {}, "Sin indicaciones reportadas."));
+  let sub = 0;
+  c.T.forEach((t, i) => {
+    const de = dets.filter(d => d.t === i)
+      .sort((a, b) => (ORDEN_DICTAMEN[a.dic] - ORDEN_DICTAMEN[b.dic]) || (a.x - b.x));
+    if (!de.length) return;
+    sub++;
+    hoja.append(el("h3", { style: "color:" + t[3] }, `7.${sub} ${t[1]} — ${de.length} indicación(es)`),
+      kv([["Descripción", t[4]], ["Criterio de aceptación", t[6]], ["Método de detección", t[5]]]),
+      el("div", { class: "tarjetas" }, de.map(d => el("div", { class: "tarjeta evitar-corte", style: "--c:" + t[2] },
+        el("div", { class: "cab" }, el("span", {}, d.id),
+          el("span", { style: "color:" + DICTAMEN[d.dic][1] }, DICTAMEN[d.dic][0])),
+        el("div", {}, `Posición: ${Math.round(d.x)} mm` + (d.pie ? ` · pie ${d.pie === 1 ? "superior" : "inferior"}` : "")),
+        el("div", {}, d.medida),
+        d.revision ? el("div", { class: "nota" }, "Inspector: " + d.revision) : null))));
+  });
+
+  // 8. Alcance
+  hoja.append(el("h2", {}, "8. Supuestos, limitaciones y trazabilidad"), kv(c.S),
+    el("ul", { class: "nota" }, c.L.map(l => el("li", {}, l))));
+
+  // 9. Firmas
+  hoja.append(el("h2", {}, "9. Responsables"), el("div", { class: "firmas evitar-corte" },
+    [["Elaborado por", "Sistema de inspección / operador del equipo"], ["Revisado y aprobado por", "Inspector de soldadura"]]
+      .map(([a, b]) => el("div", { class: "firma" }, el("div", { class: "b" }, a), el("div", { class: "nota" }, b),
+        el("div", { class: "l" }, "Nombre y firma"), el("div", { class: "f" }, "Fecha: ____ / ____ / ________")))));
+
+  hoja.append(el("footer", {},
+    el("p", {}, "Prototipo de inspección asistida por procesamiento digital de imágenes. No sustituye el dictamen de " +
+                "un inspector calificado."),
+    el("p", {}, "Este informe no se guarda en ningún servidor: sus datos viajan dentro del código QR del equipo. " +
+                "Descárgalo si quieres conservarlo.")));
+
+  const barra = document.getElementById("barra");
+  barra.hidden = false;
+  document.getElementById("pdf").onclick = () => descargarPdf(c);
+  window.contenidoInforme = c;
+}
+
+function leyenda(c, dets) {
+  return el("div", { class: "leyenda" }, c.T.filter((t, i) => dets.some(d => d.t === i))
+    .map(t => el("span", { style: "--c:" + t[2] }, t[1])));
+}
+
+function mapa(c, dets) {
+  const [W, H, X0, X1] = c.G;
+  if (!W || !H) return el("p", { class: "nota" }, "(Sin geometría de la franja.)");
+  const m = { l: 4, r: 4, t: 4, b: 16 }, escala = 4;   // 4 unidades SVG por mm
+  const ancho = W * escala + m.l + m.r, alto = H * escala + m.t + m.b;
+  const s = sv("svg", { class: "mapa", viewBox: `0 0 ${ancho} ${alto}`, role: "img",
+                        "aria-label": "Mapa de indicaciones a lo largo del cordón" });
+  s.append(sv("rect", { x: m.l, y: m.t, width: W * escala, height: H * escala, fill: "#e9eaec", stroke: "#888", "stroke-width": 1 }));
+  if (X0 !== undefined) {
+    for (const [a, b] of [[0, X0], [X1, W]]) if (b - a > 0.5)
+      s.append(sv("rect", { x: m.l + a * escala, y: m.t, width: (b - a) * escala, height: H * escala, fill: "#3c3c3c", "fill-opacity": .45 }));
+  }
+  const r = Math.max(5, Math.min(9, W * escala / 120));
+  for (const d of dets) {
+    const cx = m.l + d.x * escala, cy = m.t + d.y * escala;
+    const p = sv("circle", { cx, cy, r, fill: d.tipo[2], stroke: "#222", "stroke-width": 1.2, "fill-opacity": .9 });
+    p.append(sv("title", {}, `${d.id} · ${d.medida}`));
+    s.append(p, sv("text", { x: cx, y: cy - r - 2, "text-anchor": "middle", "font-size": 9, fill: "#222" }, d.id));
+  }
+  const y0 = m.t + H * escala;
+  const paso = W > 150 ? 50 : 20;
+  for (let k = 0; k <= W + 1e-6; k += 10) {
+    const x = m.l + k * escala, mayor = k % paso === 0;
+    s.append(sv("line", { x1: x, x2: x, y1: y0, y2: y0 + (mayor ? 6 : 3), stroke: "#555", "stroke-width": 1 }));
+    if (mayor) s.append(sv("text", { x, y: y0 + 15, "text-anchor": "middle", "font-size": 11, fill: "#444" }, `${k} mm`));
+  }
+  return s;
+}
+
+// PDF hoja por hoja. Una sola captura de toda la página (como hace html2pdf) mide ~1400x15000 px y
+// los celulares la devuelven EN BLANCO sin error (límite de canvas: iOS ~16,7 Mpx de área, Android
+// 16384 px de alto). Aquí cada hoja A4 es una captura propia (~1400x2000 px) y los cortes se eligen
+// para no partir tablas, tarjetas ni títulos.
+const MARGEN = { l: 10, r: 10, t: 10, b: 12 };   // mm
+const UTIL = { w: 210 - MARGEN.l - MARGEN.r, h: 297 - MARGEN.t - MARGEN.b };
+const ATOMICOS = ".evitar-corte, tr, h1, h2, h3, .tarjeta, li, p, header, .leyenda, .desliza, .sub, .aviso";
+
+function cortesDePagina(hoja, altoPagina) {
+  const base = hoja.getBoundingClientRect().top;
+  const total = Math.ceil(hoja.scrollHeight);
+  const atomos = [...hoja.querySelectorAll(ATOMICOS)].map(e => {
+    const r = e.getBoundingClientRect();
+    return { a: r.top - base, b: r.bottom - base, titulo: /^H[1-3]$/.test(e.tagName) };
+  }).filter(x => x.b - x.a > 0 && x.b - x.a < altoPagina * 0.9);
+  const paginas = [];
+  let y = 0;
+  while (y < total - 1) {
+    let fin = Math.min(y + altoPagina, total);
+    if (fin < total) {
+      let cambio = true;
+      while (cambio) {            // subir el corte hasta que no atraviese ningún bloque
+        cambio = false;
+        for (const x of atomos) {
+          const cruza = x.a > y + 20 && x.a < fin && x.b > fin;
+          const tituloSuelto = x.titulo && x.a > y + 20 && x.a < fin && fin - x.b < 60;   // título al pie
+          if ((cruza || tituloSuelto) && x.a < fin) { fin = x.a; cambio = true; }
+        }
+      }
+      if (fin - y < altoPagina * 0.3) fin = Math.min(y + altoPagina, total);   // bloque enorme: se corta
+    }
+    paginas.push([y, fin]);
+    y = fin;
+  }
+  return paginas;
+}
+
+// Arma el PDF (jsPDF) y lo devuelve; también lo usan las pruebas automáticas.
+async function crearPdf(c) {
+  const hoja = document.getElementById("hoja");
+  const scrollPrevio = window.scrollY;
+  window.scrollTo(0, 0);       // con la página desplazada html2canvas captura en blanco
+  document.body.classList.add("pdf");
+  // html2canvas dibuja el SVG a su tamaño propio (viewBox), no al de la pantalla: se fija en px.
+  for (const s of document.querySelectorAll("svg.mapa")) {
+    const r = s.getBoundingClientRect();
+    s.setAttribute("width", Math.round(r.width));
+    s.setAttribute("height", Math.round(r.height));
+  }
+  await new Promise(r => setTimeout(r, 80));   // deja que el navegador recalcule el ancho A4
+  try {
+    const anchoPx = hoja.offsetWidth;
+    const altoPagina = Math.floor(anchoPx * UTIL.h / UTIL.w);
+    const paginas = cortesDePagina(hoja, altoPagina);
+    const caja = hoja.getBoundingClientRect();
+    const x0 = caja.left + window.scrollX, y0 = caja.top + window.scrollY;
+    const pdf = new jspdf.jsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+    for (let i = 0; i < paginas.length; i++) {
+      const [a, b] = paginas[i];
+      const lienzo = await html2canvas(hoja, {
+        scale: 2, x: x0, y: y0 + a, width: anchoPx, height: b - a, scrollX: 0, scrollY: 0,
+        windowWidth: Math.max(anchoPx, document.documentElement.clientWidth), backgroundColor: "#ffffff",
+        useCORS: true, logging: false,
+      });
+      if (i) pdf.addPage();
+      pdf.addImage(lienzo.toDataURL("image/jpeg", 0.92), "JPEG", MARGEN.l, MARGEN.t, UTIL.w, (b - a) * UTIL.w / anchoPx);
+      pdf.setFontSize(7.5);
+      pdf.setTextColor(110);
+      pdf.text(`Informe ${c.r} — Página ${i + 1} de ${paginas.length}`, 210 - MARGEN.r, 297 - 5, { align: "right" });
+    }
+    return pdf;
+  } finally {
+    document.body.classList.remove("pdf");
+    for (const s of document.querySelectorAll("svg.mapa")) { s.removeAttribute("width"); s.removeAttribute("height"); }
+    window.scrollTo(0, scrollPrevio);
+  }
+}
+
+async function descargarPdf(c) {
+  const b = document.getElementById("pdf");
+  if (typeof html2canvas === "undefined" || typeof jspdf === "undefined") {
+    alert("No se pudo cargar el generador de PDF. Revisa la conexión o usa «Imprimir / Guardar».");
+    return;
+  }
+  b.disabled = true; b.textContent = "Generando PDF…";
+  try {
+    (await crearPdf(c)).save(`informe_${c.m}_${c.r}.pdf`);
+  } catch (e) {
+    alert("No se pudo generar el PDF (" + e.message + "). Usa «Imprimir / Guardar» y elige «Guardar como PDF».");
+  } finally {
+    b.disabled = false; b.textContent = "Descargar PDF";
+  }
+}
+
+function error(titulo, texto) {
+  document.getElementById("hoja").replaceChildren(el("div", { class: "error" }, el("h1", {}, titulo), el("p", {}, texto)));
+}
+
+(async () => {
+  const frag = decodeURIComponent(location.hash.slice(1)).trim().toUpperCase();
+  if (!frag) {
+    error("Informe de inspección", "Escanea con la cámara del celular el código QR que muestra el equipo al generar el informe.");
+    return;
+  }
+  try {
+    if (typeof pako === "undefined") throw new Error("no se pudo cargar el descompresor (revisa la conexión a internet)");
+    dibujar(await decodificar(frag));
+  } catch (e) {
+    console.error(e);
+    error("No se pudo abrir el informe", "El enlace está incompleto o dañado (" + e.message + "). Vuelve a escanear el código QR.");
+  }
+})();
+</script>
+</body>
+</html>
